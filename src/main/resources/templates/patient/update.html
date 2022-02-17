@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Mediscreen - Update Patient</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<h2>Update Patient</h2>
+	</div>
+
+	<div class="row">
+		<form th:action="@{/patient/update/{id}(id=${patientBean.patientId})}" th:object="${patientBean}" th:method="put" class="form-horizontal" style="width: 100%">
+			<div class="form-group">
+				<label for="familyName" class="col-sm-2 control-label">Family Name</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{familyName}" id="familyName" placeholder="Family Name" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('familyName')}" th:errors="*{familyName}"></p>
+					<p></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="givenName" class="col-sm-2 control-label">Given Name</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{givenName}" id="givenName" placeholder="Given Name" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('givenName')}" th:errors="*{givenName}"></p>
+					<p></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="sex" class="col-sm-2 control-label">Sex</label>
+				<div class="col-sm-10">
+				<select th:field="*{sex}">
+    				<option th:value="'M'" th:text="Male"></option>
+    				<option th:value="'F'" th:text="Female"></option>
+				</select>
+				<p class="text-danger" th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"></p>
+					<p></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="birthdate" class="col-sm-2 control-label">Date of Birth</label>
+				<div class="col-sm-10">
+					<input type="date" th:field="*{birthdate}" id="birthdate" placeholder="Date of Birth" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('birthdate')}" th:errors="*{birthdate}"></p>
+					<p></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="address" class="col-sm-2 control-label">Address</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{address}" id="address" placeholder="Address" class="col-4">
+					<p></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="phone" class="col-sm-2 control-label">Phone</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{phone}" id="phone" placeholder="Phone" class="col-4">
+					<p></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+					<input type="hidden" th:field="*{patientId}">
+					<a class="btn btn-danger btn-sm" href="/patient/list">Cancel</a>
+					<input class="btn btn-primary btn-sm" type="submit" value="Update Patient">
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Mediscreen - Patients</title>
+<link href="../static/css/bootstrap.min.css" th:href="@{../../css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-6">
+			<a href="/home">Home</a>&nbsp;|&nbsp;
+		</div>
+	</div>
+	<div class="row"><h2>Patients</h2></div>
+	<div class="row">
+		<a style="width: 10%" href="/patient/add" class="btn btn-primary btn-sm">New Patient</a>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Family Name</th>
+					<th>Given Name</th>
+					<th>Sex</th>
+					<th>Date of Birth</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="patient : ${patientBeans}">
+					<td th:text="${patient.familyName}"></td>
+					<td th:text="${patient.givenName}"></td>
+					<td>
+    					<span style="width: 10%" th:if="${patient.sex == 'F'}">Female</span>
+    					<span style="width: 10%" th:unless="${patient.sex == 'F'}">Male</span>
+					</td>
+					<td style="width: 15%" th:text="${#temporals.format(patient.birthdate, 'dd/MM/yyyy')}"></td>
+					<td style="width: 15%" class="text-center">
+						<a th:href="@{/patient/update/{id}(id=${patient.patientId})}">Edit</a>&nbsp;|&nbsp;
+						<a th:href="@{/patient/delete/{id}(id=${patient.patientId})}">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>
