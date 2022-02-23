@@ -1,7 +1,6 @@
 package com.openclassrooms.mediscreenWeb.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -38,13 +37,13 @@ public class PatientWebController {
 	}
 
 	@GetMapping("/patient/get/{id}")
-	public Optional<PatientBean> getPatientById(@PathVariable("id") int patientId) {
+	public PatientBean getPatientById(@PathVariable("id") int patientId) {
 		return patientProxy.getPatientById(patientId);
 	}
 
-	@GetMapping("/patient/get/{family}/{given}")
-	public PatientBean getPatientByFamilyAndGivenName(@PathVariable("family") String familyName,
-			@PathVariable("given") String givenName) {
+	@GetMapping("/patient/get/{familyName}/{givenName}")
+	public PatientBean getPatientByFamilyAndGivenName(@PathVariable("familyName") String familyName,
+			@PathVariable("givenName") String givenName) {
 		return patientProxy.getPatientByFamilyAndGivenName(familyName, givenName);
 	}
 
@@ -68,7 +67,7 @@ public class PatientWebController {
 
 	@GetMapping("/patient/update/{id}")
 	public String showUpdatePatientForm(@PathVariable("id") int patientBeanId, Model model) {
-		model.addAttribute("patientBean", patientProxy.getPatientById(patientBeanId).get());
+		model.addAttribute("patientBean", patientProxy.getPatientById(patientBeanId));
 
 		return "patient/update";
 	}

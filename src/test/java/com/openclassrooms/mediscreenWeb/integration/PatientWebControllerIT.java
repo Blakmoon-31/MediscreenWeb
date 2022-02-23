@@ -3,8 +3,7 @@ package com.openclassrooms.mediscreenWeb.integration;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
+import java.time.LocalDate;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -36,7 +35,7 @@ public class PatientWebControllerIT {
 		patientBeanToAdd1.setFamilyName("TestAdd1");
 		patientBeanToAdd1.setGivenName("Add1");
 		patientBeanToAdd1.setSex("M");
-		patientBeanToAdd1.setBirthdate(LocalDateTime.now());
+		patientBeanToAdd1.setBirthdate(LocalDate.now());
 		patientBeanToAdd1.setAddress("Adress 1");
 		patientBeanToAdd1.setPhone("111-2222-333");
 
@@ -46,7 +45,7 @@ public class PatientWebControllerIT {
 		patientBeanToAdd2.setFamilyName("TestAdd2");
 		patientBeanToAdd2.setGivenName("Add2");
 		patientBeanToAdd2.setSex("M");
-		patientBeanToAdd2.setBirthdate(LocalDateTime.now());
+		patientBeanToAdd2.setBirthdate(LocalDate.now());
 
 		patientWebController.validatePatient(patientBeanToAdd2, result, model);
 
@@ -76,7 +75,7 @@ public class PatientWebControllerIT {
 	@Test
 	public void testGetPatientById() {
 
-		PatientBean patientBean = patientWebController.getPatientById(2).get();
+		PatientBean patientBean = patientWebController.getPatientById(2);
 
 		assertThat(patientBean.getFamilyName()).isEqualTo("TestBorderline");
 	}
@@ -108,7 +107,7 @@ public class PatientWebControllerIT {
 		patientToValidate.setFamilyName("TestAdd");
 		patientToValidate.setGivenName("Add");
 		patientToValidate.setSex("M");
-		patientToValidate.setBirthdate(LocalDateTime.now());
+		patientToValidate.setBirthdate(LocalDate.now());
 
 		String response = patientWebController.validatePatient(patientToValidate, result, model);
 
@@ -138,7 +137,7 @@ public class PatientWebControllerIT {
 
 		String response = patientWebController.validatePatient(patientBeanToUpdate, result, model);
 
-		PatientBean patientBeanUpdated = patientWebController.getPatientById(patientBeanToUpdate.getPatientId()).get();
+		PatientBean patientBeanUpdated = patientWebController.getPatientById(patientBeanToUpdate.getPatientId());
 
 		assertThat(response).isEqualTo("redirect:/patient/list");
 		assertThat(patientBeanUpdated.getSex()).isEqualTo("F");
@@ -150,10 +149,9 @@ public class PatientWebControllerIT {
 		PatientBean patientBeanToDelete = patientWebController.getPatientByFamilyAndGivenName("TestAdd2", "Add2");
 		String response = patientWebController.deletePatient(patientBeanToDelete.getPatientId());
 
-		Optional<PatientBean> patientBeanDeleted = patientWebController
-				.getPatientById(patientBeanToDelete.getPatientId());
+		PatientBean patientBeanDeleted = patientWebController.getPatientById(patientBeanToDelete.getPatientId());
 
 		assertThat(response).isEqualTo("redirect:/patient/list");
-		assertThat(patientBeanDeleted.isEmpty()).isTrue();
+		assertThat(patientBeanDeleted).isNull();
 	}
 }

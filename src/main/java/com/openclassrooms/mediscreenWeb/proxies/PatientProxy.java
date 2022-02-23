@@ -1,7 +1,6 @@
 package com.openclassrooms.mediscreenWeb.proxies;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,7 +19,7 @@ public interface PatientProxy {
 	List<PatientBean> getPatients();
 
 	@GetMapping("/patient/get/{id}")
-	Optional<PatientBean> getPatientById(@PathVariable("id") int patientId);
+	PatientBean getPatientById(@PathVariable("id") int patientId);
 
 	@GetMapping("/patient/get/{family}/{given}")
 	PatientBean getPatientByFamilyAndGivenName(@PathVariable("family") String familyName,

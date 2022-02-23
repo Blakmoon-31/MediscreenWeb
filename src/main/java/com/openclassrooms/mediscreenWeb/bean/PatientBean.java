@@ -1,8 +1,9 @@
 package com.openclassrooms.mediscreenWeb.bean;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -20,8 +21,8 @@ public class PatientBean {
 	@NotBlank(message = "Sex is mandatory")
 	private String sex;
 
-//	@NotBlank(message = "Birthdate is mandatory")
-	private LocalDateTime birthdate;
+	@NotNull(message = "Birthdate is mandatory")
+	private LocalDate birthdate;
 
 	private String address;
 
