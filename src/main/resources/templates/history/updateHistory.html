@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Mediscreen - Update Patient's History</title>
+<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+</head>
+<body>
+<div class="container">
+
+	<div class="row">
+		<h2>Update History</h2>
+	</div>
+
+	<div class="row"><h3>Patient</h3></div>
+	<div class="row">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Family Name</th>
+					<th>Given Name</th>
+					<th>Sex</th>
+					<th>Date of Birth</th>
+					<th>Age</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="patient : ${patient}">
+					<td th:text="${patient.familyName}"></td>
+					<td th:text="${patient.givenName}"></td>
+					<td>
+	  					<span style="width: 3%" th:if="${patient.sex == 'F'}">Female</span>
+	  					<span style="width: 3%" th:unless="${patient.sex == 'F'}">Male</span>
+					</td>
+					<td style="width: 12%" th:text="${#temporals.format(patient.birthdate, 'dd/MM/yyyy')}"></td>
+					<td style="width: 15%" th:text="${age}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+	<div class="row">
+		<form th:action="@{/history/updateHistory/{id}(id=${patientHistoryBean.historyId})}" th:object="${patientHistoryBean}" th:method="put" class="form-horizontal" style="width: 100%">
+			<div class="form-group">
+				<label for="historyDate" class="col-sm-2 control-label">Date</label>
+				<div class="col-sm-10">
+					<input hidden type="text" required th:field="*{patientId}" id="patientId" placeholder="Patient ID" th:value="${patientHistoryBean.patientId}" class="col-4">
+					<input type="date" required th:field="*{historyDate}" id="historyDate" placeholder="Date" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('historyDate')}" th:errors="*{historyDate}"></p>
+					<p></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="practitionerNote" class="col-sm-2 control-label">Practitioner Note</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" id="exampleFormControlTextarea1" cols="40" required th:field="*{practitionerNote}" rows="5" placeholder="Practitioner Note"></textarea>
+					<p class="text-danger" th:if="${#fields.hasErrors('practitionerNote')}" th:errors="*{practitionerNote}"></p>
+					<p></p>
+				</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+					<a class="btn btn-danger btn-sm" th:href="@{/history/patient/{id}(id=${patientHistoryBean.patientId})}">Cancel</a>
+					<input class="btn btn-primary btn-sm" type="submit" value="Update Note">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</body>
+</html>

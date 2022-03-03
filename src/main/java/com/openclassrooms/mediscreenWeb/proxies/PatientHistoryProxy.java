@@ -19,7 +19,7 @@ public interface PatientHistoryProxy {
 	List<PatientHistoryBean> getPatientHistoriesByPatientId(@RequestParam("patientId") int patientId);
 
 	@GetMapping("/patient/history/get")
-	PatientHistoryBean getPatientHistoryByHistoryId(@RequestParam("historyId") int historyId);
+	PatientHistoryBean getPatientHistoryByHistoryId(@RequestParam("historyId") String historyId);
 
 	@PostMapping("/patient/history/add")
 	void addPatientHistory(@RequestBody PatientHistoryBean patientHistoryBean);
@@ -28,7 +28,7 @@ public interface PatientHistoryProxy {
 	PatientHistoryBean updatePatientHistory(@RequestBody PatientHistoryBean patientHistoryBean);
 
 	@DeleteMapping("/patient/history/delete")
-	void deletePatientHistoryByPatientId(@RequestParam("historyId") int historyId);
+	void deletePatientHistoryByPatientHistoryId(@RequestParam("historyId") String historyId);
 
 	@DeleteMapping("/patient/histories/delete")
 	void deleteAllPatientHistoryByPatientId(@RequestParam("patientId") int patientId);

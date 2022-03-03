@@ -23,6 +23,7 @@
 					<th>Given Name</th>
 					<th>Sex</th>
 					<th>Date of Birth</th>
+					<th>History</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -35,6 +36,7 @@
     					<span style="width: 10%" th:unless="${patient.sex == 'F'}">Male</span>
 					</td>
 					<td style="width: 15%" th:text="${#temporals.format(patient.birthdate, 'dd/MM/yyyy')}"></td>
+					<td><a th:href="@{/history/patient/{id}(id=${patient.patientId})}">Show</a></td>
 					<td style="width: 15%" class="text-center">
 						<a th:href="@{/patient/update/{id}(id=${patient.patientId})}">Edit</a>&nbsp;|&nbsp;
 						<a th:href="@{/patient/delete/{id}(id=${patient.patientId})}">Delete</a>

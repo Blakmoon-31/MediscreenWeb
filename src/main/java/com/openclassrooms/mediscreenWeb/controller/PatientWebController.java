@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.openclassrooms.mediscreenWeb.bean.PatientBean;
-import com.openclassrooms.mediscreenWeb.proxies.PatientProxy;
+import com.openclassrooms.mediscreenWeb.service.PatientWebService;
 
 @Controller
 public class PatientWebController {
 
 	@Autowired
-	private PatientProxy patientProxy;
+	private PatientWebService patientWebService;
 
 	@RequestMapping({ "/", "/home" })
 	public String home(Model model) {
@@ -30,21 +30,21 @@ public class PatientWebController {
 
 	@GetMapping("/patient/list")
 	public String getPatients(Model model) {
-		List<PatientBean> patients = patientProxy.getPatients();
+		List<PatientBean> patients = patientWebService.getPatients();
 		model.addAttribute("patientBeans", patients);
 
 		return "patient/list";
 	}
 
-	@GetMapping("/patient/get/{id}")
-	public PatientBean getPatientById(@PathVariable("id") int patientId) {
-		return patientProxy.getPatientById(patientId);
+	@GetMapping("/patient/get/{patientId}")
+	public PatientBean getPatientById(@PathVariable("patientId") int patientId) {
+		return patientWebService.getPatientById(patientId);
 	}
 
 	@GetMapping("/patient/get/{familyName}/{givenName}")
 	public PatientBean getPatientByFamilyAndGivenName(@PathVariable("familyName") String familyName,
 			@PathVariable("givenName") String givenName) {
-		return patientProxy.getPatientByFamilyAndGivenName(familyName, givenName);
+		return patientWebService.getPatientByFamilyAndGivenName(familyName, givenName);
 	}
 
 	@GetMapping("/patient/add")
@@ -57,17 +57,17 @@ public class PatientWebController {
 	public String validatePatient(@Valid PatientBean patientBean, BindingResult result, Model model) {
 
 		if (!result.hasErrors()) {
-			patientProxy.addPatient(patientBean);
-			model.addAttribute("patientBeans", patientProxy.getPatients());
+			patientWebService.addPatient(patientBean);
+			model.addAttribute("patientBeans", patientWebService.getPatients());
 			return "redirect:/patient/list";
 		}
 		return "patient/add";
 
 	}
 
-	@GetMapping("/patient/update/{id}")
-	public String showUpdatePatientForm(@PathVariable("id") int patientBeanId, Model model) {
-		model.addAttribute("patientBean", patientProxy.getPatientById(patientBeanId));
+	@GetMapping("/patient/update/{patientId}")
+	public String showUpdatePatientForm(@PathVariable("patientId") int patientBeanId, Model model) {
+		model.addAttribute("patientBean", patientWebService.getPatientById(patientBeanId));
 
 		return "patient/update";
 	}
@@ -79,17 +79,17 @@ public class PatientWebController {
 		if (!result.hasErrors()) {
 
 			patientBean.setPatientId(patientBeanId);
-			patientProxy.updatePatient(patientBean);
-			model.addAttribute("patientBeans", patientProxy.getPatients());
+			patientWebService.updatePatient(patientBean);
+			model.addAttribute("patientBeans", patientWebService.getPatients());
 			return "redirect:/patient/list";
 		}
 
 		return "patient/update";
 	}
 
-	@GetMapping("/patient/delete/{id}")
-	public String deletePatient(@PathVariable("id") int patientBeanId) {
-		patientProxy.deletePatientById(patientBeanId);
+	@GetMapping("/patient/delete/{patientId}")
+	public String deletePatient(@PathVariable("patientId") int patientBeanId) {
+		patientWebService.deletePatientById(patientBeanId);
 
 		return "redirect:/patient/list";
 	}
