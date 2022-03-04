@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import com.openclassrooms.mediscreenWeb.bean.PatientAssessmentBean;
 import com.openclassrooms.mediscreenWeb.bean.PatientBean;
 import com.openclassrooms.mediscreenWeb.bean.PatientHistoryBean;
+import com.openclassrooms.mediscreenWeb.service.PatientAssessmentWebService;
 import com.openclassrooms.mediscreenWeb.service.PatientHistoryWebService;
 import com.openclassrooms.mediscreenWeb.service.PatientWebService;
 
@@ -25,6 +27,9 @@ public class PatientHistoryWebController {
 	public PatientHistoryWebService patientHistoryWebService;
 
 	@Autowired
+	private PatientAssessmentWebService patientAssessmentWebService;
+
+	@Autowired
 	public PatientWebService patientWebService;
 
 	@GetMapping("/history/patient/{patientId}")
@@ -33,9 +38,16 @@ public class PatientHistoryWebController {
 		PatientBean patientBean = patientWebService.getPatientById(patientId);
 		model.addAttribute("patient", patientBean);
 
+		int age = patientWebService.calculateAge(patientBean.getBirthdate());
+		model.addAttribute("age", age);
+
 		List<PatientHistoryBean> patientHistoryBeans = patientHistoryWebService
 				.getPatientHistoriesByPatientId(patientId);
 		model.addAttribute("patientHistoryBeans", patientHistoryBeans);
+
+		PatientAssessmentBean patientAssessmentBean = patientAssessmentWebService
+				.calculatePatientAssessmentByPatientId(patientId);
+		model.addAttribute("assessment", patientAssessmentBean);
 
 		return "history/patient";
 

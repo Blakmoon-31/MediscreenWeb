@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Settings - Trigger Words</title>
+<link href="../static/css/bootstrap.min.css" th:href="@{../../css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+			<a href="/home">Home</a>&nbsp;|&nbsp;
+			<a href="/patient/list">Patients and Histories</a>&nbsp;|&nbsp;
+			<a href="/assess/assess">Diabetes Assessments</a> 
+	</div>
+	<div class="row"><h2>Settings - Trigger Words</h2></div>
+
+ 	<div class="row">
+		<form method="post" th:action="@{/setting/add}" th:object="${newTriggerWord}" class="col-10">
+		  <div id="send_money">
+		    <input id="description" type="text" name="description" th:field="*{triggerWord}" placeholder="Trigger Word" required maxlength="20" class="col-4">
+		    <input id="add" type="submit" value="Add Word" class="bg-success text-white font-weight-bold col-2">
+		  </div>
+		</form>
+		<p></p>
+	</div>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Words</th>
+					<th>Action</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="word : ${triggerWords}">
+					<td style="width: 20%" th:text="${word.triggerWord}"></td>
+					<td class="text-center">
+						<a style="width: 7%" th:href="@{/setting/delete/{id}(id=${word.triggerWord})}">Delete</a>
+					</td>
+					<td style="width: 70%"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>

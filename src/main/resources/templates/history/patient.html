@@ -11,7 +11,8 @@
 		<div class="row">
 			<div class="col-6">
 				<a href="/home">Home</a>&nbsp;|&nbsp;
-				<a href="/patient/list">Patients List</a>
+				<a href="/patient/list">Patients List</a>&nbsp;|&nbsp;
+	            <a href="/assess/assess">Diabetes Assessments</a>&nbsp;|&nbsp;
 			</div>
 		</div>
 		<div class="row"><h3>Patient</h3></div>
@@ -24,6 +25,7 @@
 						<th>Given Name</th>
 						<th>Sex</th>
 						<th>Date of Birth</th>
+						<th>Age</th>
 						<th>Address</th>
 						<th>Phone</th>
 					</tr>
@@ -37,12 +39,15 @@
 		  					<span style="width: 3%" th:unless="${patient.sex == 'F'}">Male</span>
 						</td>
 						<td style="width: 12%" th:text="${#temporals.format(patient.birthdate, 'dd/MM/yyyy')}"></td>
+						<td style="width: 3%" th:text="${age}"></td>
 						<td th:text="${patient.address}"></td>
 						<td style="width: 15%" th:text="${patient.phone}"></td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
+		<p></p>
+		<div class="row"><h3>Diabetes Assessment: [[${assessment.assessmentResult}]]</h3></div>
 		<p></p>
 		<div class="row"><h2>History</h2></div>
 		<div class="row">
