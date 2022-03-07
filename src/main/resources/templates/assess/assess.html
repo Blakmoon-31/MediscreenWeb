@@ -12,7 +12,7 @@
 		<div class="col-6">
             <a href="/home">Home</a>&nbsp;|&nbsp;
             <a href="/patient/list">Patients and Histories</a>&nbsp;|&nbsp;
-            <a href="/setting">Settings</a>
+            <a href="/settings">Settings</a>
 		</div>
 	</div>
 	<div class="row"><h2>Assessments</h2></div>
@@ -22,7 +22,7 @@
         <div id="send_money">
           <select id="patient" name="patient" th:field="*{patientId}" required class="col-auto">
             <option value="0" selected>--Select A Patient--</option>
-            <option th:each="i : ${patientsList}" th:value="${i.patientId}" th:text="|${i.givenName} ${i.familyName}|"></option>
+            <option th:each="i : ${patientsList}" th:value="${i.patientId}" th:text="|${i.familyName} ${i.givenName}|"></option>
           </select>
           <input id="pay" type="submit" value="Evaluate" class="bg-success text-white font-weight-bold">
         </div>

@@ -16,6 +16,9 @@ public class PatientWebService {
 	@Autowired
 	private PatientProxy patientProxy;
 
+	@Autowired
+	private PatientHistoryWebService patientHistoryService;
+
 	public List<PatientBean> getPatients() {
 		List<PatientBean> patients = patientProxy.getPatients();
 
@@ -40,6 +43,7 @@ public class PatientWebService {
 
 	public void deletePatientById(int patientBeanId) {
 		patientProxy.deletePatientById(patientBeanId);
+		patientHistoryService.deletePatientHistoriesByPatientId(patientBeanId);
 	}
 
 	public int calculateAge(LocalDate birthdate) {

@@ -27,11 +27,6 @@ public class PatientHistoryWebService {
 
 	}
 
-	public void deletePatientHistoryByPatientHistoryId(String patientHistoryId) {
-		patientHistoryProxy.deletePatientHistoryByPatientHistoryId(patientHistoryId);
-
-	}
-
 	public PatientHistoryBean getPatientHistoriesByPatientHistoryId(String patientHistoryId) {
 
 		return patientHistoryProxy.getPatientHistoryByHistoryId(patientHistoryId);
@@ -42,4 +37,13 @@ public class PatientHistoryWebService {
 
 	}
 
+	public void deletePatientHistoryByPatientHistoryId(String patientHistoryId) {
+		patientHistoryProxy.deletePatientHistoryByPatientHistoryId(patientHistoryId);
+
+	}
+
+	public void deletePatientHistoriesByPatientId(int patientId) {
+		patientHistoryProxy.deleteAllPatientHistoriesByPatientId(patientId);
+
+	}
 }

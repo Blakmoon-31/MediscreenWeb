@@ -6,7 +6,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.openclassrooms.mediscreenWeb.bean.PatientAssessmentBean;
@@ -18,12 +17,12 @@ public interface PatientAssessmentProxy {
 	@GetMapping("/assess/id")
 	PatientAssessmentBean calculatePatientAssessmentByPatientId(@RequestParam("patientId") int patientId);
 
-	@GetMapping("/settings")
+	@GetMapping("/settings/triggerWords")
 	List<TriggerWordBean> getTriggerWords();
 
-	@PostMapping("/setting/add")
-	void addTriggerWord(@RequestBody TriggerWordBean triggerWord);
+	@PostMapping("/settings/triggerWord/add")
+	void addTriggerWord(@RequestParam("triggerWord") String triggerWord);
 
-	@DeleteMapping("/setting/delete")
+	@DeleteMapping("/settings/triggerWord/delete")
 	void deleteTriggerWord(@RequestParam("triggerWord") String triggerWord);
 }

@@ -19,30 +19,30 @@ public class SettingController {
 	@Autowired
 	private SettingService settingService;
 
-	@GetMapping("/setting")
+	@GetMapping("/settings")
 	public String getTriggerWords(Model model) {
 		model.addAttribute("triggerWords", settingService.getTriggerWords());
 		TriggerWordBean newTriggerWord = new TriggerWordBean();
 		model.addAttribute("newTriggerWord", newTriggerWord);
 
-		return "setting";
+		return "settings";
 	}
 
-	@PostMapping("/setting/add")
+	@PostMapping("/settings/triggerWord/add")
 	public String addTriggerWord(@Valid TriggerWordBean triggerWord, BindingResult result, Model model) {
 
 		if (!result.hasErrors()) {
 			settingService.addTriggerWord(triggerWord);
 			model.addAttribute("triggerWords", settingService.getTriggerWords());
-			return "redirect:/setting";
+			return "redirect:/settings";
 		}
-		return "setting";
+		return "settings";
 	}
 
-	@GetMapping("/setting/delete/{triggerWord}")
+	@GetMapping("/settings/triggerWord/delete/{triggerWord}")
 	public String deleteTriggerWord(@PathVariable("triggerWord") String triggerWord) {
 		settingService.deleteTriggerWord(triggerWord);
-		return "redirect:/setting";
+		return "redirect:/settings";
 	}
 
 }

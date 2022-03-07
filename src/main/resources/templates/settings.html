@@ -16,7 +16,7 @@
 	<div class="row"><h2>Settings - Trigger Words</h2></div>
 
  	<div class="row">
-		<form method="post" th:action="@{/setting/add}" th:object="${newTriggerWord}" class="col-10">
+		<form method="post" th:action="@{/settings/triggerWord/add}" th:object="${newTriggerWord}" class="col-10">
 		  <div id="send_money">
 		    <input id="description" type="text" name="description" th:field="*{triggerWord}" placeholder="Trigger Word" required maxlength="20" class="col-4">
 		    <input id="add" type="submit" value="Add Word" class="bg-success text-white font-weight-bold col-2">
@@ -37,7 +37,7 @@
 				<tr th:each="word : ${triggerWords}">
 					<td style="width: 20%" th:text="${word.triggerWord}"></td>
 					<td class="text-center">
-						<a style="width: 7%" th:href="@{/setting/delete/{id}(id=${word.triggerWord})}">Delete</a>
+						<a onClick="return confirm('Are sure you want to delete this trigger word ?')" style="width: 7%" th:href="@{/settings/triggerWord/delete/{id}(id=${word.triggerWord})}">Delete</a>
 					</td>
 					<td style="width: 70%"></td>
 				</tr>

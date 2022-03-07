@@ -19,7 +19,7 @@ public class SettingService {
 	}
 
 	public void addTriggerWord(TriggerWordBean triggerWord) {
-		patientAssessmentProxy.addTriggerWord(triggerWord);
+		patientAssessmentProxy.addTriggerWord(triggerWord.getTriggerWord());
 
 	}
 

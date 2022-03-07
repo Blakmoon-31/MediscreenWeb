@@ -31,6 +31,6 @@ public interface PatientHistoryProxy {
 	void deletePatientHistoryByPatientHistoryId(@RequestParam("historyId") String historyId);
 
 	@DeleteMapping("/patient/histories/delete")
-	void deleteAllPatientHistoryByPatientId(@RequestParam("patientId") int patientId);
+	void deleteAllPatientHistoriesByPatientId(@RequestParam("patientId") int patientId);
 
 }
