@@ -25,7 +25,7 @@ public class PatientWebController {
 
 	@RequestMapping({ "/", "/home" })
 	public String home(Model model) {
-		return "/home";
+		return "home";
 	}
 
 	@GetMapping("/patient/list")

@@ -11,7 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.openclassrooms.mediscreenWeb.bean.PatientAssessmentBean;
 import com.openclassrooms.mediscreenWeb.bean.TriggerWordBean;
 
-@FeignClient(name = "Mediscreen-PatientAssessment", url = "localhost:8080")
+/**
+ * Proxy used to connect to the PatientHistory service. URL - The url use the
+ * name of the Docker container (patientassessment) to communicate between
+ * containers. Use localhost if application is not run from a container. Ports
+ * are the same.
+ * 
+ * @author emmanuel
+ *
+ */
+@FeignClient(name = "Mediscreen-PatientAssessment", url = "${patientassessment.proxy.host}")
 public interface PatientAssessmentProxy {
 
 	@GetMapping("/assess/id")
